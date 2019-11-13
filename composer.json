@@ -7,10 +7,14 @@
     },
     "autoload": {
         "psr-4":{
-            "APP\\": "app"
+            "APP\\": "app",
+            "DB\\": "database"
         },
         "classmap": [
-            "app/controllers"
+            "app/controllers",
+            "app/models",
+            "database/interfaces",
+            "database/connections"
         ]
     }
 }

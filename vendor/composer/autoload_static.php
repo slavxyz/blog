@@ -20,6 +20,10 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
         ),
+        'D' => 
+        array (
+            'DB\\' => 3,
+        ),
         'A' => 
         array (
             'APP\\' => 4,
@@ -38,6 +42,10 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'DB\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/database',
         ),
         'APP\\' => 
         array (
@@ -71,7 +79,12 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
     );
 
     public static $classMap = array (
+        'App\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/controllers/Controller.php',
         'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/controllers/IndexController.php',
+        'App\\Models\\Model' => __DIR__ . '/../..' . '/app/models/Model.php',
+        'App\\Models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
+        'Db\\Connections\\MySqlConnection' => __DIR__ . '/../..' . '/database/connections/MySqlConnection.php',
+        'Db\\Interfaces\\IConnections' => __DIR__ . '/../..' . '/database/interfaces/Connections.php',
         'SlimFlashTest' => __DIR__ . '/..' . '/slim/slim/tests/Middleware/FlashTest.php',
         'SlimHttpUtilTest' => __DIR__ . '/..' . '/slim/slim/tests/Http/UtilTest.php',
         'SlimTest' => __DIR__ . '/..' . '/slim/slim/tests/SlimTest.php',

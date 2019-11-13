@@ -6,7 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Controllers\\Controller' => $baseDir . '/app/controllers/Controller.php',
     'App\\Controllers\\IndexController' => $baseDir . '/app/controllers/IndexController.php',
+    'App\\Models\\Model' => $baseDir . '/app/models/Model.php',
+    'App\\Models\\User' => $baseDir . '/app/models/User.php',
+    'Db\\Connections\\MySqlConnection' => $baseDir . '/database/connections/MySqlConnection.php',
+    'Db\\Interfaces\\IConnections' => $baseDir . '/database/interfaces/Connections.php',
     'SlimFlashTest' => $vendorDir . '/slim/slim/tests/Middleware/FlashTest.php',
     'SlimHttpUtilTest' => $vendorDir . '/slim/slim/tests/Http/UtilTest.php',
     'SlimTest' => $vendorDir . '/slim/slim/tests/SlimTest.php',

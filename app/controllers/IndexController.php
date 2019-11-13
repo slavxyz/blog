@@ -1,15 +1,11 @@
 <?php
 namespace App\Controllers;
+use App\Controllers\Controller as Controller;
+use App\Models\User;
 
-class IndexController {
-    
-    protected $app;
-    
-    public function __construct(){
-         $this->app = \Slim\Slim::getInstance();
-    }
+class IndexController extends Controller {
     
     public function index(){
-         $this->app->render('app.twig', ['app' => 'Welcome to Blog']);
+        $this->app->render('app.twig', ['app' => 'Welcome to Blog']);
     }
 }
