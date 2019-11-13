@@ -1,5 +1,16 @@
 {
     "require": {
-        "slim/slim": "~2.0"
+        "slim/slim": "2.4.*",
+        "slim/views":"0.1.2",
+        "twig/twig": "1.*",
+        "twig/extensions": "*"
+    },
+    "autoload": {
+        "psr-4":{
+            "APP\\": "app"
+        },
+        "classmap": [
+            "app/controllers"
+        ]
     }
 }
