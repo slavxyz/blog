@@ -1,20 +1,21 @@
 <?php
+
 namespace App\Models;
+
 use PDO;
 
 abstract class Model {
-    
+
     protected $conn;
     protected $app;
-    
     protected $table;
     protected $query;
-    
-    public function __construct(){
+
+    public function __construct() {
         $this->app = \Slim\Slim::getInstance();
         $this->conn = $this->app->database;
     }
-    
+
     public function createInsertQuery() {
 
         $sql = "INSERT INTO " . $this->table();
@@ -28,9 +29,24 @@ abstract class Model {
 
         return $sql;
     }
-    
+
     public function select(array $columns = ['*']) {
-        $this->query = "SELECT ".implode(", ",$columns)." FROM " . $this->table;
+        $this->query = "SELECT " . implode(", ", $columns) . " FROM " . $this->table;
+        $this->query->type = "select";
+
+        return $this;
+    }
+
+    public function where(string $field, string $operator = '=', string $value)
+    {   
+        if (!in_array($this->query->type, ['select'])) {
+            throw new \Exception("Incorrect using of WHERE clause");
+        }
+        $this->query->where []= "$field $operator '$value'";
+        
+        if(!empty($this->query->where)){
+            $this->query .= " WHERE ". implode(' AND ', $this->query->where);
+        }
 
         return $this;
     }
@@ -53,8 +69,7 @@ abstract class Model {
     public function run() {
         return $this->conn->query($this->query)->fetchAll(PDO::FETCH_ASSOC);
     }
-    
-    
+
     /**
      * Table name
      */
@@ -69,5 +84,4 @@ abstract class Model {
      * Number of columns in table
      */
     abstract function length();
-    
 }
