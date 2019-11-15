@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-
 use PDO;
 
 abstract class Model {
@@ -14,6 +13,11 @@ abstract class Model {
     public function __construct() {
         $this->app = \Slim\Slim::getInstance();
         $this->conn = $this->app->database;
+    }
+    
+    protected function reset(): void
+    {
+        $this->query = new \stdClass;
     }
 
     public function createInsertQuery() {
@@ -30,8 +34,10 @@ abstract class Model {
         return $sql;
     }
 
-    public function select(array $columns = ['*']) {
-        $this->query = "SELECT " . implode(", ", $columns) . " FROM " . $this->table;
+    public function select(array $columns = ['*'])
+    {
+        $this->reset(); 
+        $this->query->sql = "SELECT " . implode(", ", $columns) . " FROM " . $this->table;
         $this->query->type = "select";
 
         return $this;
@@ -44,30 +50,30 @@ abstract class Model {
         }
         $this->query->where []= "$field $operator '$value'";
         
-        if(!empty($this->query->where)){
-            $this->query .= " WHERE ". implode(' AND ', $this->query->where);
+        if(!empty($this->query)){
+            $this->query->sql .= " WHERE ". implode(' AND ', $this->query->where);
         }
 
         return $this;
     }
 
     public function orderBy($column, $sort = "ASC") {
-        $this->query .= " ORDER BY $column $sort";
+        $this->query->sql .= " ORDER BY $column $sort";
         return $this;
     }
 
     public function limit($limit) {
-        $this->query .= " LIMIT $limit ";
+        $this->query->sql .= " LIMIT $limit ";
         return $this;
     }
 
     public function offset($offset = 0) {
-        $this->query .= " OFFSET $offset ";
+        $this->query->sql .= " OFFSET $offset ";
         return $this;
     }
 
-    public function run() {
-        return $this->conn->query($this->query)->fetchAll(PDO::FETCH_ASSOC);
+    public function fetchOne() {
+        return $this->conn->query($this->query->sql)->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
