@@ -79,6 +79,7 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
     );
 
     public static $classMap = array (
+        'App\\Controllers\\Admin\\IndexController' => __DIR__ . '/../..' . '/app/controllers/admin/IndexController.php',
         'App\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/controllers/auth/AuthController.php',
         'App\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/controllers/Controller.php',
         'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/controllers/IndexController.php',
