@@ -12,6 +12,7 @@
         },
         "classmap": [
             "app/controllers",
+            "app/controllers/auth",
             "app/models",
             "database/interfaces",
             "database/connections"

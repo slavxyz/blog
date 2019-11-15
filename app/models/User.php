@@ -39,26 +39,30 @@ class User extends Model {
 
     public function authUser($username = null, $password = null) {
 
+        $userData = [];
+
         if ($username !== null) {
 
             $username = trim($username);
             $userData = $this->getUserByUsername($username);
         } else {
-            throw new Exception("Username required");
+            throw new \Exception("Username required");
         }
+        
+        
 
         if ($userData) {
-            $userData['password'] = getPasswordByUsername($user['name']);
+            $userData []= $this->getPasswordByUsername($userData['name']);
         } else {
-            throw new Exception("Username does not exists");
+            throw new \Exception("Username does not exists");
         }
-
+        
         $password = self::validatePassword($password);
-
+        
         if (password_verify($password, $userData['password'])) {
-            $this->loginSuccessfull($userData['id'], $userData['user'], $userData['password']);
+            $this->loginSuccessfull($userData['id'], $userData['name']);
         } else {
-            throw new Exception("Password didn`t match");
+            throw new \Exception("Password didn`t match");
         }
     }
 
@@ -83,10 +87,10 @@ class User extends Model {
     public function getUserByUsername($username) {
 
         try {
-            $data = $this->conn->select()
-                    ->where("name", "=", $username)
+            $data = $this->select()
+                    ->where('name', "=", $username)
                     ->limit(1)
-                    ->run();
+                    ->fetchOne();
 
             return !empty($data) ? $data : null;
         } catch (Exception $e) {
@@ -96,15 +100,19 @@ class User extends Model {
 
     public function getPasswordByUsername($username) {
         try {
-            $password = $this->conn->select(['password'])
+            $password = $this->select(['password'])
                     ->where("name", "=", $username)
                     ->limit(1)
-                    ->run();
+                    ->fetchOne();
 
             return !empty($password) ? $password : null;
         } catch (Exception $e) {
             echo $e->getMessage();
         }
+    }
+    
+    public function logout(){
+        
     }
 
     public function isSessionExpired() {
