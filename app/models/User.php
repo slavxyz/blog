@@ -21,15 +21,15 @@ class User extends Model {
     private $email;
     private $password;
 
-    public function table() {
+    public function table(): string {
         return $this->table;
     }
 
-    public function fields() {
+    public function fields(): string {
         return $this->fields;
     }
 
-    public function length() {
+    public function length(): int {
         return count($this->fields);
     }
 
@@ -37,7 +37,7 @@ class User extends Model {
         
     }
 
-    public function authUser($username = null, $password = null) {
+    public function authUser(string $username = null,  string $password = null): void {
 
         $userData = [];
 
@@ -52,7 +52,7 @@ class User extends Model {
         
 
         if ($userData) {
-            $userData []= $this->getPasswordByUsername($userData['name']);
+            $userData['password'] = $this->getPasswordByUsername($userData['name']);
         } else {
             throw new \Exception("Username does not exists");
         }
@@ -62,29 +62,33 @@ class User extends Model {
         if (password_verify($password, $userData['password'])) {
             $this->loginSuccessfull($userData['id'], $userData['name']);
         } else {
-            throw new \Exception("Password didn`t match");
+           throw new InvalidPasswordException();
         }
     }
 
-    public function loginSuccessfull($id, $username) {
+    public function loginSuccessfull(int $id, string $username) : void 
+    {
         $_SESSION[self::SESSION_LOGGED_IN] = true;
         $_SESSION[self::SESSION_USER_ID] = $id;
         $_SESSION[self::SESSION_USERNAME] = $username;
         $_SESSION[self::SESSION_RESYNC] = time();
     }
 
-    protected static function validatePassword($password) {
+    protected static function validatePassword(string $password) : string
+    {
         if (empty($password)) {
             throw new InvalidPasswordException();
         }
-        $password = \trim($password);
-        if (\strlen($password) < 1) {
+        
+        $passwordTrimmed = \trim($password);
+        if (\strlen($passwordTrimmed) < 1) {
             throw new InvalidPasswordException();
         }
-        return $password;
+        return $passwordTrimmed;
     }
 
-    public function getUserByUsername($username) {
+    public function getUserByUsername(string $username): array
+    {
 
         try {
             $data = $this->select()
@@ -98,24 +102,27 @@ class User extends Model {
         }
     }
 
-    public function getPasswordByUsername($username) {
+    public function getPasswordByUsername(string $username): string
+    {
         try {
-            $password = $this->select(['password'])
+            $data = $this->select(['password'])
                     ->where("name", "=", $username)
                     ->limit(1)
                     ->fetchOne();
-
-            return !empty($password) ? $password : null;
+            
+            return !empty($data['password']) ? $data['password'] : null;
         } catch (Exception $e) {
             echo $e->getMessage();
         }
     }
     
-    public function logout(){
+    public function logout(): void
+    {
         
     }
 
-    public function isSessionExpired() {
+    public function isSessionExpired() : bool
+    {
         
     }
 

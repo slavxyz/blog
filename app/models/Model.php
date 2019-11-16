@@ -10,7 +10,8 @@ abstract class Model {
     protected $table;
     protected $query;
 
-    public function __construct() {
+    public function __construct() 
+    {
         $this->app = \Slim\Slim::getInstance();
         $this->conn = $this->app->database;
     }
@@ -20,7 +21,8 @@ abstract class Model {
         $this->query = new \stdClass;
     }
 
-    public function createInsertQuery() {
+    public function createInsertQuery(): Model 
+    {
 
         $sql = "INSERT INTO " . $this->table();
 
@@ -34,7 +36,7 @@ abstract class Model {
         return $sql;
     }
 
-    public function select(array $columns = ['*'])
+    public function select(array $columns = ['*']): Model
     {
         $this->reset(); 
         $this->query->sql = "SELECT " . implode(", ", $columns) . " FROM " . $this->table;
@@ -43,7 +45,7 @@ abstract class Model {
         return $this;
     }
 
-    public function where(string $field, string $operator = '=', string $value)
+    public function where(string $field, string $operator = '=', string $value): Model
     {   
         if (!in_array($this->query->type, ['select'])) {
             throw new \Exception("Incorrect using of WHERE clause");
@@ -57,37 +59,41 @@ abstract class Model {
         return $this;
     }
 
-    public function orderBy($column, $sort = "ASC") {
+    public function orderBy(string $column, string $sort = "ASC"): Model
+    {
         $this->query->sql .= " ORDER BY $column $sort";
         return $this;
     }
 
-    public function limit($limit) {
+    public function limit(int $limit): Model 
+    {
         $this->query->sql .= " LIMIT $limit ";
         return $this;
     }
 
-    public function offset($offset = 0) {
+    public function offset(int $offset = 0): Model 
+    {
         $this->query->sql .= " OFFSET $offset ";
         return $this;
     }
 
-    public function fetchOne() {
+    public function fetchOne(): array
+    {
         return $this->conn->query($this->query->sql)->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
      * Table name
      */
-    abstract function table();
+    abstract function table() : string;
 
     /**
      * Table columns
      */
-    abstract function fields();
+    abstract function fields() : string;
 
     /**
      * Number of columns in table
      */
-    abstract function length();
+    abstract function length() : int;
 }
