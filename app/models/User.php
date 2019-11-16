@@ -10,6 +10,8 @@ class User extends Model {
     const SESSION_USER_ID = 'auth_user_id';
     const SESSION_USERNAME = 'auth_username';
     const SESSION_RESYNC = 'auth_resync';
+    
+    private  $loginTimeDuration = 10; //60 * 5; // 5 minutes 
 
     protected $table = 'users';
     protected $fields = [
@@ -37,7 +39,7 @@ class User extends Model {
         
     }
 
-    public function authUser(string $username = null,  string $password = null): void {
+    public function authUser(string $username = null,  string $password = null): bool {
 
         $userData = [];
 
@@ -48,8 +50,6 @@ class User extends Model {
         } else {
             throw new \Exception("Username required");
         }
-        
-        
 
         if ($userData) {
             $userData['password'] = $this->getPasswordByUsername($userData['name']);
@@ -61,9 +61,13 @@ class User extends Model {
         
         if (password_verify($password, $userData['password'])) {
             $this->loginSuccessfull($userData['id'], $userData['name']);
+            
+            return true;
         } else {
            throw new InvalidPasswordException();
         }
+        
+        return false;
     }
 
     public function loginSuccessfull(int $id, string $username) : void 
@@ -89,7 +93,6 @@ class User extends Model {
 
     public function getUserByUsername(string $username): array
     {
-
         try {
             $data = $this->select()
                     ->where('name', "=", $username)
@@ -123,7 +126,12 @@ class User extends Model {
 
     public function isSessionExpired() : bool
     {
-        
+        if ($_SESSION[self::SESSION_RESYNC]) {
+            if (((time() - $_SESSION[self::SESSION_RESYNC]) > $this->loginTimeDuration)) {
+               return true;
+            }
+        }
+        return false;
     }
 
 }
