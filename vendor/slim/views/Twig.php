@@ -6,7 +6,7 @@
  * @author      Andrew Smith
  * @link        http://www.slimframework.com
  * @copyright   2013 Josh Lockhart
- * @version     0.1.2
+ * @version     0.1.3
  * @package     SlimViews
  *
  * MIT LICENSE
@@ -114,6 +114,7 @@ class Twig extends \Slim\View
              * otherwise include it.
              */
             if (!class_exists('\Twig_Autoloader')) {
+                var_dump($this->parserDirectory);exit;
                 require_once $this->parserDirectory . '/Autoloader.php';
             }
 

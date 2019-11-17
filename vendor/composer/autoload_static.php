@@ -19,6 +19,7 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+            'Slim\\Views\\' => 11,
         ),
         'D' => 
         array (
@@ -42,6 +43,10 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Slim\\Views\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/slim/views',
         ),
         'DB\\' => 
         array (
@@ -67,10 +72,6 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
         ),
         'S' => 
         array (
-            'Slim\\Views' => 
-            array (
-                0 => __DIR__ . '/..' . '/slim/views',
-            ),
             'Slim' => 
             array (
                 0 => __DIR__ . '/..' . '/slim/slim',
@@ -80,6 +81,7 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
 
     public static $classMap = array (
         'App\\Controllers\\Admin\\IndexController' => __DIR__ . '/../..' . '/app/controllers/admin/IndexController.php',
+        'App\\Controllers\\Admin\\PostsController' => __DIR__ . '/../..' . '/app/controllers/admin/PostsController.php',
         'App\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/controllers/auth/AuthController.php',
         'App\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/controllers/Controller.php',
         'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/controllers/IndexController.php',
@@ -111,9 +113,9 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
         'Slim\\Router' => __DIR__ . '/..' . '/slim/slim/Slim/Router.php',
         'Slim\\Slim' => __DIR__ . '/..' . '/slim/slim/Slim/Slim.php',
         'Slim\\View' => __DIR__ . '/..' . '/slim/slim/Slim/View.php',
-        'Slim\\Views\\Smarty' => __DIR__ . '/..' . '/slim/views/Slim/Views/Smarty.php',
-        'Slim\\Views\\Twig' => __DIR__ . '/..' . '/slim/views/Slim/Views/Twig.php',
-        'Slim\\Views\\TwigExtension' => __DIR__ . '/..' . '/slim/views/Slim/Views/TwigExtension.php',
+        'Slim\\Views\\Smarty' => __DIR__ . '/..' . '/slim/views/Smarty.php',
+        'Slim\\Views\\Twig' => __DIR__ . '/..' . '/slim/views/Twig.php',
+        'Slim\\Views\\TwigExtension' => __DIR__ . '/..' . '/slim/views/TwigExtension.php',
         'Symfony\\Polyfill\\Ctype\\Ctype' => __DIR__ . '/..' . '/symfony/polyfill-ctype/Ctype.php',
         'Twig\\Cache\\CacheInterface' => __DIR__ . '/..' . '/twig/twig/src/Cache/CacheInterface.php',
         'Twig\\Cache\\FilesystemCache' => __DIR__ . '/..' . '/twig/twig/src/Cache/FilesystemCache.php',

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controllers\\Admin\\IndexController' => $baseDir . '/app/controllers/admin/IndexController.php',
+    'App\\Controllers\\Admin\\PostsController' => $baseDir . '/app/controllers/admin/PostsController.php',
     'App\\Controllers\\Auth\\AuthController' => $baseDir . '/app/controllers/auth/AuthController.php',
     'App\\Controllers\\Controller' => $baseDir . '/app/controllers/Controller.php',
     'App\\Controllers\\IndexController' => $baseDir . '/app/controllers/IndexController.php',
@@ -38,9 +39,9 @@ return array(
     'Slim\\Router' => $vendorDir . '/slim/slim/Slim/Router.php',
     'Slim\\Slim' => $vendorDir . '/slim/slim/Slim/Slim.php',
     'Slim\\View' => $vendorDir . '/slim/slim/Slim/View.php',
-    'Slim\\Views\\Smarty' => $vendorDir . '/slim/views/Slim/Views/Smarty.php',
-    'Slim\\Views\\Twig' => $vendorDir . '/slim/views/Slim/Views/Twig.php',
-    'Slim\\Views\\TwigExtension' => $vendorDir . '/slim/views/Slim/Views/TwigExtension.php',
+    'Slim\\Views\\Smarty' => $vendorDir . '/slim/views/Smarty.php',
+    'Slim\\Views\\Twig' => $vendorDir . '/slim/views/Twig.php',
+    'Slim\\Views\\TwigExtension' => $vendorDir . '/slim/views/TwigExtension.php',
     'Symfony\\Polyfill\\Ctype\\Ctype' => $vendorDir . '/symfony/polyfill-ctype/Ctype.php',
     'Twig\\Cache\\CacheInterface' => $vendorDir . '/twig/twig/src/Cache/CacheInterface.php',
     'Twig\\Cache\\FilesystemCache' => $vendorDir . '/twig/twig/src/Cache/FilesystemCache.php',

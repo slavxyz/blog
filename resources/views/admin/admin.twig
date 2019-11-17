@@ -1,4 +1,16 @@
-<h3>I'm templating {{ app }} from twig and I'm integrated with the route system</h3>
-
-
-
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin panel</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link href="css/admin.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        {{   block('login') }}
+        {{   block('posts') }}
+    </body>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>
