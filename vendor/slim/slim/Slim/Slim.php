@@ -3,10 +3,10 @@
  * Slim - a micro PHP 5 framework
  *
  * @author      Josh Lockhart <info@slimframework.com>
- * @copyright   2011-2017 Josh Lockhart
+ * @copyright   2011 Josh Lockhart
  * @link        http://www.slimframework.com
  * @license     http://www.slimframework.com/license
- * @version     2.6.3
+ * @version     2.4.2
  * @package     Slim
  *
  * MIT LICENSE
@@ -33,8 +33,10 @@
 namespace Slim;
 
 // Ensure mcrypt constants are defined even if mcrypt extension is not loaded
-if (!defined('MCRYPT_MODE_CBC')) define('MCRYPT_MODE_CBC', 0);
-if (!defined('MCRYPT_RIJNDAEL_256')) define('MCRYPT_RIJNDAEL_256', 0);
+if (!extension_loaded('mcrypt')) {
+    define('MCRYPT_MODE_CBC', 0);
+    define('MCRYPT_RIJNDAEL_256', 0);
+}
 
 /**
  * Slim
@@ -52,7 +54,7 @@ class Slim
     /**
      * @const string
      */
-    const VERSION = '2.6.3';
+    const VERSION = '2.4.2';
 
     /**
      * @var \Slim\Helper\Set
@@ -229,22 +231,22 @@ class Slim
 
     public function __get($name)
     {
-        return $this->container->get($name);
+        return $this->container[$name];
     }
 
     public function __set($name, $value)
     {
-        $this->container->set($name, $value);
+        $this->container[$name] = $value;
     }
 
     public function __isset($name)
     {
-        return $this->container->has($name);
+        return isset($this->container[$name]);
     }
 
     public function __unset($name)
     {
-        $this->container->remove($name);
+        unset($this->container[$name]);
     }
 
     /**
@@ -904,12 +906,7 @@ class Slim
             }
         }
 
-        /*
-         * transform $value to @return doc requirement.
-         * \Slim\Http\Util::decodeSecureCookie -  is able
-         * to return false and we have to cast it to null.
-         */
-        return $value === false ? null : $value;
+        return $value;
     }
 
     /**
@@ -1103,18 +1100,6 @@ class Slim
         $this->halt($status);
     }
 
-    /**
-     * RedirectTo
-     *
-     * Redirects to a specific named route
-     *
-     * @param string    $route      The route name
-     * @param array     $params     Associative array of URL parameters and replacement values
-     */
-    public function redirectTo($route, $params = array(), $status = 302){
-        $this->redirect($this->urlFor($route, $params), $status);
-    }
-
     /********************************************************************************
     * Flash Messages
     *******************************************************************************/
@@ -1153,16 +1138,6 @@ class Slim
         }
     }
 
-    /**
-     * Get all flash messages
-     */
-    public function flashData()
-    {
-        if (isset($this->environment['slim.flash'])) {
-            return $this->environment['slim.flash']->getMessages();
-        }
-    }
-
     /********************************************************************************
     * Hooks
     *******************************************************************************/
@@ -1185,10 +1160,10 @@ class Slim
 
     /**
      * Invoke hook
-     * @param  string $name The hook name
-     * @param  mixed  ...   (Optional) Argument(s) for hooked functions, can specify multiple arguments
+     * @param  string   $name       The hook name
+     * @param  mixed    $hookArg    (Optional) Argument for hooked functions
      */
-    public function applyHook($name)
+    public function applyHook($name, $hookArg = null)
     {
         if (!isset($this->hooks[$name])) {
             $this->hooks[$name] = array(array());
@@ -1198,14 +1173,10 @@ class Slim
             if (count($this->hooks[$name]) > 1) {
                 ksort($this->hooks[$name]);
             }
-
-            $args = func_get_args();
-            array_shift($args);
-
             foreach ($this->hooks[$name] as $priority) {
                 if (!empty($priority)) {
                     foreach ($priority as $callable) {
-                        call_user_func_array($callable, $args);
+                        call_user_func($callable, $hookArg);
                     }
                 }
             }
@@ -1370,11 +1341,9 @@ class Slim
             $this->response()->write(ob_get_clean());
         } catch (\Exception $e) {
             if ($this->config('debug')) {
-                ob_end_clean();
                 throw $e;
             } else {
                 try {
-                    $this->response()->write(ob_get_clean());
                     $this->error($e);
                 } catch (\Slim\Exception\Stop $e) {
                     // Do nothing

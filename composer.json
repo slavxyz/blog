@@ -1,5 +1,22 @@
 {
     "require": {
-        "slim/slim": "~2.0"
+        "slim/slim": "2.4.*",
+        "slim/views":"^0.1.3",
+        "twig/twig": "1.*",
+        "twig/extensions": "*"
+    },
+    "autoload": {
+        "psr-4":{
+            "APP\\": "app",
+            "DB\\": "database"
+        },
+        "classmap": [
+            "app/controllers",
+            "app/controllers/auth",
+            "app/controllers/admin",
+            "app/models",
+            "database/interfaces",
+            "database/connections"
+        ]
     }
 }
