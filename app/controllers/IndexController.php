@@ -5,11 +5,8 @@ use App\Models\User;
 
 class IndexController extends Controller {
     
-    public function index(){
-        
-        $user = new User();
-        
-        
+    public function index()
+    {
         $this->app->render('app.twig', ['app' => 'Welcome to Blog']);
     }
 }
