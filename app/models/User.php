@@ -57,9 +57,10 @@ class User extends Model {
             throw new \Exception("Username does not exists");
         }
         
-        $password = self::validatePassword($password);
+        $passwordValidate = self::validatePassword($password);
         
-        if (password_verify($password, $userData['password'])) {
+        
+        if (password_verify($passwordValidate, $userData['password'])) {
             $this->loginSuccessfull($userData['id'], $userData['name']);
             
             return true;
@@ -96,7 +97,6 @@ class User extends Model {
         try {
             $data = $this->select()
                     ->where('name', "=", $username)
-                    ->limit(1)
                     ->fetchOne();
 
             return !empty($data) ? $data : null;
@@ -110,7 +110,6 @@ class User extends Model {
         try {
             $data = $this->select(['password'])
                     ->where("name", "=", $username)
-                    ->limit(1)
                     ->fetchOne();
             
             return !empty($data['password']) ? $data['password'] : null;
