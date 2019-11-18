@@ -82,10 +82,12 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
     public static $classMap = array (
         'App\\Controllers\\Admin\\IndexController' => __DIR__ . '/../..' . '/app/controllers/admin/IndexController.php',
         'App\\Controllers\\Admin\\PostsController' => __DIR__ . '/../..' . '/app/controllers/admin/PostsController.php',
+        'App\\Controllers\\Admin\\UsersController' => __DIR__ . '/../..' . '/app/controllers/admin/UsersController.php',
         'App\\Controllers\\Auth\\AuthController' => __DIR__ . '/../..' . '/app/controllers/auth/AuthController.php',
         'App\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/controllers/Controller.php',
         'App\\Controllers\\IndexController' => __DIR__ . '/../..' . '/app/controllers/IndexController.php',
         'App\\Models\\Model' => __DIR__ . '/../..' . '/app/models/Model.php',
+        'App\\Models\\Posts' => __DIR__ . '/../..' . '/app/models/Posts.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/models/User.php',
         'Db\\Connections\\MySqlConnection' => __DIR__ . '/../..' . '/database/connections/MySqlConnection.php',
         'Db\\Interfaces\\IConnections' => __DIR__ . '/../..' . '/database/interfaces/Connections.php',

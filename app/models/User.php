@@ -11,12 +11,13 @@ class User extends Model {
     const SESSION_USERNAME = 'auth_username';
     const SESSION_RESYNC = 'auth_resync';
     
-    private  $loginTimeDuration = 10; //60 * 5; // 5 minutes 
+    private  $loginTimeDuration = 60 * 5; // 5 minutes 
 
     protected $table = 'users';
     protected $fields = [
-        'name',
+        'username',
         'email',
+        'role',
         'password',
     ];
     private $name;
@@ -42,7 +43,7 @@ class User extends Model {
     public function authUser(string $username = null,  string $password = null): bool {
 
         $userData = [];
-
+        
         if ($username !== null) {
 
             $username = trim($username);
@@ -52,16 +53,19 @@ class User extends Model {
         }
 
         if ($userData) {
-            $userData['password'] = $this->getPasswordByUsername($userData['name']);
+            $userData['password'] = $this->getPasswordByUsername($userData['username']);
         } else {
             throw new \Exception("Username does not exists");
         }
+        
+        
+        
         
         $passwordValidate = self::validatePassword($password);
         
         
         if (password_verify($passwordValidate, $userData['password'])) {
-            $this->loginSuccessfull($userData['id'], $userData['name']);
+            $this->loginSuccessfull($userData['id'], $userData['username']);
             
             return true;
         } else {
@@ -96,7 +100,7 @@ class User extends Model {
     {
         try {
             $data = $this->select()
-                    ->where('name', "=", $username)
+                    ->where('username', "=", $username)
                     ->fetchOne();
 
             return !empty($data) ? $data : null;
@@ -109,7 +113,7 @@ class User extends Model {
     {
         try {
             $data = $this->select(['password'])
-                    ->where("name", "=", $username)
+                    ->where("username", "=", $username)
                     ->fetchOne();
             
             return !empty($data['password']) ? $data['password'] : null;

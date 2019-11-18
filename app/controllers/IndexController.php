@@ -9,4 +9,5 @@ class IndexController extends Controller {
     {
         $this->app->render('app.twig', ['app' => 'Welcome to Blog']);
     }
+    
 }

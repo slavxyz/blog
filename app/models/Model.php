@@ -77,9 +77,13 @@ abstract class Model {
         return $this;
     }
 
-    public function fetchOne() : array
+    public function fetchOne(): ?array
     {
-        return $this->conn->query($this->query->sql)->fetch(PDO::FETCH_ASSOC);
+        try{
+          return $this->conn->query($this->query->sql)->fetch();
+        } catch (\Exception $e){
+            echo $e->getMessage("User does not exists");
+        }
     }
 
     /**
