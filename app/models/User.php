@@ -9,6 +9,7 @@ class User extends Model {
     const SESSION_LOGGED_IN = 'auth_logged_in';
     const SESSION_USER_ID = 'auth_user_id';
     const SESSION_USERNAME = 'auth_username';
+    const SESSION_ROLE = 'auth_role';
     const SESSION_RESYNC = 'auth_resync';
     
     private  $loginTimeDuration = 60 * 5; // 5 minutes 
@@ -58,14 +59,10 @@ class User extends Model {
             throw new \Exception("Username does not exists");
         }
         
-        
-        
-        
         $passwordValidate = self::validatePassword($password);
         
-        
         if (password_verify($passwordValidate, $userData['password'])) {
-            $this->loginSuccessfull($userData['id'], $userData['username']);
+            $this->loginSuccessfull($userData['id'], $userData['username'], $userData['role']);
             
             return true;
         } else {
@@ -75,11 +72,12 @@ class User extends Model {
         return false;
     }
 
-    public function loginSuccessfull(int $id, string $username) : void 
+    public function loginSuccessfull(int $id, string $username, string $role) : void 
     {
         $_SESSION[self::SESSION_LOGGED_IN] = true;
         $_SESSION[self::SESSION_USER_ID] = $id;
         $_SESSION[self::SESSION_USERNAME] = $username;
+        $_SESSION[self::SESSION_ROLE] = $role;
         $_SESSION[self::SESSION_RESYNC] = time();
     }
 

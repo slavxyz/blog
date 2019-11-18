@@ -21,6 +21,11 @@ class UsersController extends Controller
         $this->app->render('admin/users.twig',['users' => $users]);
     }
     
+    public function userForm()
+    {
+        $this->app->render('admin/user.twig');
+    }
+    
     public function create(Request $request)
     {
         $username = $request->params('username');

@@ -15,12 +15,20 @@ class AuthController extends Controller
         $username = $request->params('user');
         $password = $request->params('password');
         
+        $role = $_SESSION['auth_role'];
+        
         if(empty($username) || empty($password))
             $this->app->redirect('login');
         
         $user = new User();
+        
         if($user->authUser($username, $password)){
-            $this->app->redirect('posts');
+            
+            if($role === 'admin'){
+                $this->app->redirect('users');
+            }else{    
+                $this->app->redirect('posts');
+            }
         }
         
         $this->app->redirect('login');

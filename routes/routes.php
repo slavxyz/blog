@@ -32,9 +32,18 @@ $app->get('/users', function() use ($app, $user, $userSrv){
             $app->redirect('login');
         }
         
-        
         $users = new App\Controllers\Admin\UsersController($userSrv);
         return $users->index();
+});
+
+$app->get('/user', function() use ($app, $user, $userSrv){
+    
+        if($user->isSessionExpired()){
+            $app->redirect('login');
+        }
+        
+        $userCreate = new App\Controllers\Admin\UsersController($userSrv);
+        return $userCreate->userForm();
 });
 
 $app->post('/user', function() use ($app, $user, $userSrv){

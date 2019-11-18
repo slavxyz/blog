@@ -3,7 +3,8 @@
 {%  block users %}
     <div class="container login-container">
         <div class="row justify-content-center align-items-center">
-            <div class="col-6">
+            <div class="col-8">
+                <a href="user" class="create-user"> Create user +</a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -19,7 +20,7 @@
                                 <td>{{ user.username }}</td>
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.role}}</td>
-                                <td>{{ user.createdAt}}</td>
+                                <td>{{ user.created_at}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
