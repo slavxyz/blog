@@ -97,6 +97,15 @@ abstract class Model {
             echo $e->getMessage("User does not exists");
         }
     }
+    
+    public function fetchAll(): array
+    {
+        try{
+          return $this->conn->query($this->query->sql)->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e){
+            echo $e->getMessage("User does not exists");
+        }
+    }
 
     /**
      * Table name

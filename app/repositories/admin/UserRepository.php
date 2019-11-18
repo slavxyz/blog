@@ -17,4 +17,15 @@ class UserRepository {
         
         $this->user->create([$username, $email, $role, $passwordHash]);
     }
+    
+    public function userslist() : array 
+    {
+        try{
+            return $this->user->select()->fetchAll();
+        } catch (Exception $e){
+            echo $e->getMessage();
+        }
+        
+                
+    }
 }

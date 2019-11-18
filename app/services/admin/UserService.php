@@ -11,6 +11,11 @@ class UserService {
         $this->userRepository = $userRepository;
     }
     
+    public function getUsers() : array
+    {
+        return $this->userRepository->userslist();
+    }
+    
     public function prepareUser(string $username, string $email, string $role, string $password): void
     {
         $this->userRepository->createUser($username, $email, $role, $password);

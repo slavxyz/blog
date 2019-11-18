@@ -17,13 +17,14 @@ class UsersController extends Controller
     
     public function index()
     {
-        $this->app->render('admin/user.twig');
+        $users = $this->userService->getUsers();
+        $this->app->render('admin/users.twig',['users' => $users]);
     }
     
     public function create(Request $request)
     {
         $username = $request->params('username');
-        $email = $request->params('username');
+        $email = $request->params('email');
         $role = $request->params('role');
         $password = $request->params('password');
         
