@@ -23,12 +23,26 @@ $app->get('/posts', function() use ($app, $user){
         return $posts->index();
 });
 
-$app->get('/users', function() use ($app, $user){
+$userRepo = new App\Repositories\Admin\UserRepository($user);
+$userSrv = new App\Services\Admin\UserService($userRepo);
+
+$app->get('/users', function() use ($app, $user, $userSrv){
     
         if($user->isSessionExpired()){
             $app->redirect('login');
         }
         
-        $users = new App\Controllers\Admin\UsersController();
+        
+        $users = new App\Controllers\Admin\UsersController($userSrv);
         return $users->index();
+});
+
+$app->post('/user', function() use ($app, $user, $userSrv){
+    
+        if($user->isSessionExpired()){
+            $app->redirect('login');
+        }
+        
+        $userCreate = new App\Controllers\Admin\UsersController($userSrv);
+        return $userCreate->create($app->request());
 });

@@ -10,10 +10,7 @@ class IndexController extends Controller
     
     public function index()
     {
-        
-        
         $user = new User();
-        
         if($user->isSessionExpired()){
             $this->app->redirect('login');
         }

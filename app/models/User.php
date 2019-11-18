@@ -28,7 +28,7 @@ class User extends Model {
         return $this->table;
     }
 
-    public function fields(): string {
+    public function fields(): array {
         return $this->fields;
     }
 

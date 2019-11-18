@@ -15,6 +15,8 @@ return array(
     'App\\Models\\Model' => $baseDir . '/app/models/Model.php',
     'App\\Models\\Posts' => $baseDir . '/app/models/Posts.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',
+    'App\\Repositories\\Admin\\UserRepository' => $baseDir . '/app/repositories/admin/UserRepository.php',
+    'App\\Services\\Admin\\UserService' => $baseDir . '/app/services/admin/UserService.php',
     'Db\\Connections\\MySqlConnection' => $baseDir . '/database/connections/MySqlConnection.php',
     'Db\\Interfaces\\IConnections' => $baseDir . '/database/interfaces/Connections.php',
     'SlimFlashTest' => $vendorDir . '/slim/slim/tests/Middleware/FlashTest.php',

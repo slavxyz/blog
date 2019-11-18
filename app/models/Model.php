@@ -21,7 +21,7 @@ abstract class Model {
         $this->query = new \stdClass;
     }
 
-    public function createInsertQuery(): Model 
+    public function createInsertQuery(): string 
     {
 
         $sql = "INSERT INTO " . $this->table();
@@ -34,6 +34,18 @@ abstract class Model {
         $sql .= $fields . " VALUES " . $values;
 
         return $sql;
+    }
+    
+    public function create($data) {
+
+        $query = $this->createInsertQuery();
+        $stmt = $this->conn->prepare($query);
+
+        if ($stmt->execute(array_values((array) $data))) {
+            return json_encode(['success' => '201 created']);
+        } else {
+            throw new \Exception("Execution interupted");
+        }
     }
 
     public function select(array $columns = ['*']): Model
@@ -94,7 +106,7 @@ abstract class Model {
     /**
      * Table columns
      */
-    abstract function fields() : string;
+    abstract function fields() : array;
 
     /**
      * Number of columns in table
