@@ -12,17 +12,6 @@ $app->get('/login', 'App\Controllers\Admin\IndexController:login');
 $app->get('/admin', 'App\Controllers\Admin\IndexController:index');
 
 $user = new App\Models\User();
-
-$app->get('/posts', function() use ($app, $user){
-        
-        if($user->isSessionExpired()){
-            $app->redirect('login');
-        }
-        
-        $posts = new App\Controllers\Admin\PostsController();
-        return $posts->index();
-});
-
 $userRepo = new App\Repositories\Admin\UserRepository($user);
 $userSrv = new App\Services\Admin\UserService($userRepo);
 
@@ -46,7 +35,8 @@ $app->get('/user', function() use ($app, $user, $userSrv){
         return $userCreate->userForm();
 });
 
-$app->post('/user', function() use ($app, $user, $userSrv){
+$app->post('/user', function() use ($app, $user, $userSrv)
+{
     
         if($user->isSessionExpired()){
             $app->redirect('login');
@@ -54,4 +44,39 @@ $app->post('/user', function() use ($app, $user, $userSrv){
         
         $userCreate = new App\Controllers\Admin\UsersController($userSrv);
         return $userCreate->create($app->request());
+});
+
+$post = new App\Models\Posts();
+$postRepo = new App\Repositories\Admin\PostRepository($post);
+$postSrv = new App\Services\Admin\PostService($postRepo);
+
+$app->get('/postform', function() use ($app, $user, $postSrv){
+    
+        if($user->isSessionExpired()){
+            $app->redirect('login');
+        }
+        
+        $form = new App\Controllers\Admin\PostsController($postSrv);
+        return $form->postForm();
+});
+
+$app->get('/posts', function() use ($app, $user, $postSrv){
+        
+        if($user->isSessionExpired()){
+            $app->redirect('login');
+        }
+        
+        $posts = new App\Controllers\Admin\PostsController($postSrv);
+        return $posts->index();
+});
+
+$app->post('/post', function() use ($app, $user, $postSrv)
+{
+    
+        if($user->isSessionExpired()){
+            $app->redirect('login');
+        }
+        
+        $postCreate = new App\Controllers\Admin\PostsController($postSrv);
+        return $postCreate->create($app->request());
 });

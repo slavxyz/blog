@@ -4,6 +4,7 @@
     <div class="container login-container">
         <div class="row justify-content-center align-items-center">
             <div class="col-6">
+                <a href="postform" class="create-user">Add post +</a>
                 <table class="table">
                     <thead>
                         <tr>
@@ -12,14 +13,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {% for post in posts %}}
                         <tr>
-                            <td>Title 1</td>
-                            <td>02-10-2019</td>
+                            <td>{{ post.title }}</td>
+                            <td>{{ post.body }}</td>
                         </tr>
-                        <tr>
-                            <td>Title 2</td>
-                            <td>03-10-2019</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>

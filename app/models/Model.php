@@ -40,7 +40,7 @@ abstract class Model {
 
         $query = $this->createInsertQuery();
         $stmt = $this->conn->prepare($query);
-
+        
         if ($stmt->execute(array_values((array) $data))) {
             return json_encode(['success' => '201 created']);
         } else {

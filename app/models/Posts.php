@@ -9,7 +9,7 @@ class Posts extends Model
     protected $fields = [
         'user_id',
         'title',
-        'posts',
+        'body',
     ];
 
     public function table(): string
@@ -17,7 +17,7 @@ class Posts extends Model
         return $this->table;
     }
 
-    public function fields(): string
+    public function fields(): array
     {
         return $this->fields;
     }
