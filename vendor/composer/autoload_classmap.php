@@ -13,6 +13,7 @@ return array(
     'App\\Controllers\\Auth\\AuthController' => $baseDir . '/app/controllers/auth/AuthController.php',
     'App\\Controllers\\Controller' => $baseDir . '/app/controllers/Controller.php',
     'App\\Controllers\\IndexController' => $baseDir . '/app/controllers/IndexController.php',
+    'App\\Models\\Auth' => $baseDir . '/app/models/Auth.php',
     'App\\Models\\Model' => $baseDir . '/app/models/Model.php',
     'App\\Models\\Posts' => $baseDir . '/app/models/Posts.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',

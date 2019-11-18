@@ -5,19 +5,21 @@ $app->get('/', 'App\Controllers\IndexController:index');
 $app->post('/auth', function () use ($app) {
        $auth = new  App\Controllers\Auth\AuthController();
        return $auth->index($app->request());
-
 });
 
 $app->get('/login', 'App\Controllers\Admin\IndexController:login');
 $app->get('/admin', 'App\Controllers\Admin\IndexController:index');
 
+
 $user = new App\Models\User();
+$auth = new App\Models\Auth($user);
+
 $userRepo = new App\Repositories\Admin\UserRepository($user);
 $userSrv = new App\Services\Admin\UserService($userRepo);
 
-$app->get('/users', function() use ($app, $user, $userSrv){
+$app->get('/users', function() use ($app, $auth, $userSrv){
     
-        if($user->isSessionExpired()){
+        if($auth->isSessionExpired()){
             $app->redirect('login');
         }
         
@@ -25,9 +27,9 @@ $app->get('/users', function() use ($app, $user, $userSrv){
         return $users->index();
 });
 
-$app->get('/user', function() use ($app, $user, $userSrv){
+$app->get('/user', function() use ($app, $auth, $userSrv){
     
-        if($user->isSessionExpired()){
+        if($auth->isSessionExpired()){
             $app->redirect('login');
         }
         
@@ -35,10 +37,10 @@ $app->get('/user', function() use ($app, $user, $userSrv){
         return $userCreate->userForm();
 });
 
-$app->post('/user', function() use ($app, $user, $userSrv)
+$app->post('/user', function() use ($app, $auth, $userSrv)
 {
     
-        if($user->isSessionExpired()){
+        if($auth->isSessionExpired()){
             $app->redirect('login');
         }
         
@@ -50,9 +52,9 @@ $post = new App\Models\Posts();
 $postRepo = new App\Repositories\Admin\PostRepository($post);
 $postSrv = new App\Services\Admin\PostService($postRepo);
 
-$app->get('/postform', function() use ($app, $user, $postSrv){
+$app->get('/postform', function() use ($app, $auth, $postSrv){
     
-        if($user->isSessionExpired()){
+        if($auth->isSessionExpired()){
             $app->redirect('login');
         }
         
@@ -60,9 +62,9 @@ $app->get('/postform', function() use ($app, $user, $postSrv){
         return $form->postForm();
 });
 
-$app->get('/posts', function() use ($app, $user, $postSrv){
+$app->get('/posts', function() use ($app, $auth, $postSrv){
         
-        if($user->isSessionExpired()){
+        if($auth->isSessionExpired()){
             $app->redirect('login');
         }
         
@@ -70,10 +72,10 @@ $app->get('/posts', function() use ($app, $user, $postSrv){
         return $posts->index();
 });
 
-$app->post('/post', function() use ($app, $user, $postSrv)
+$app->post('/post', function() use ($app, $auth, $postSrv)
 {
     
-        if($user->isSessionExpired()){
+        if($auth->isSessionExpired()){
             $app->redirect('login');
         }
         
