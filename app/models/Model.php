@@ -21,7 +21,7 @@ abstract class Model {
         $this->query = new \stdClass;
     }
 
-    public function createInsertQuery(): Model 
+    public function createInsertQuery(): string 
     {
 
         $sql = "INSERT INTO " . $this->table();
@@ -34,6 +34,18 @@ abstract class Model {
         $sql .= $fields . " VALUES " . $values;
 
         return $sql;
+    }
+    
+    public function create($data) {
+
+        $query = $this->createInsertQuery();
+        $stmt = $this->conn->prepare($query);
+        
+        if ($stmt->execute(array_values((array) $data))) {
+            return json_encode(['success' => '201 created']);
+        } else {
+            throw new \Exception("Execution interupted");
+        }
     }
 
     public function select(array $columns = ['*']): Model
@@ -58,7 +70,7 @@ abstract class Model {
 
         return $this;
     }
-
+    
     public function orderBy(string $column, string $sort = "ASC"): Model
     {
         $this->query->sql .= " ORDER BY $column $sort";
@@ -77,9 +89,22 @@ abstract class Model {
         return $this;
     }
 
-    public function fetchOne() : array
+    public function fetchOne(): ?array
     {
-        return $this->conn->query($this->query->sql)->fetch(PDO::FETCH_ASSOC);
+        try{
+          return $this->conn->query($this->query->sql)->fetch();
+        } catch (\Exception $e){
+            echo $e->getMessage("User does not exists");
+        }
+    }
+    
+    public function fetchAll(): array
+    {
+        try{
+          return $this->conn->query($this->query->sql)->fetchAll(PDO::FETCH_ASSOC);
+        } catch (\Exception $e){
+            echo $e->getMessage("User does not exists");
+        }
     }
 
     /**
@@ -90,7 +115,7 @@ abstract class Model {
     /**
      * Table columns
      */
-    abstract function fields() : string;
+    abstract function fields() : array;
 
     /**
      * Number of columns in table

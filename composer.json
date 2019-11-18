@@ -11,10 +11,13 @@
             "DB\\": "database"
         },
         "classmap": [
+            "app/common",
             "app/controllers",
             "app/controllers/auth",
             "app/controllers/admin",
             "app/models",
+            "app/repositories/admin",
+            "app/services/admin",
             "database/interfaces",
             "database/connections"
         ]

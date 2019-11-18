@@ -6,13 +6,21 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Common\\UserSession' => $baseDir . '/app/common/UserSession.php',
     'App\\Controllers\\Admin\\IndexController' => $baseDir . '/app/controllers/admin/IndexController.php',
     'App\\Controllers\\Admin\\PostsController' => $baseDir . '/app/controllers/admin/PostsController.php',
+    'App\\Controllers\\Admin\\UsersController' => $baseDir . '/app/controllers/admin/UsersController.php',
     'App\\Controllers\\Auth\\AuthController' => $baseDir . '/app/controllers/auth/AuthController.php',
     'App\\Controllers\\Controller' => $baseDir . '/app/controllers/Controller.php',
     'App\\Controllers\\IndexController' => $baseDir . '/app/controllers/IndexController.php',
+    'App\\Models\\Auth' => $baseDir . '/app/models/Auth.php',
     'App\\Models\\Model' => $baseDir . '/app/models/Model.php',
+    'App\\Models\\Posts' => $baseDir . '/app/models/Posts.php',
     'App\\Models\\User' => $baseDir . '/app/models/User.php',
+    'App\\Repositories\\Admin\\PostRepository' => $baseDir . '/app/repositories/admin/PostRepository.php',
+    'App\\Repositories\\Admin\\UserRepository' => $baseDir . '/app/repositories/admin/UserRepository.php',
+    'App\\Services\\Admin\\PostService' => $baseDir . '/app/services/admin/PostService.php',
+    'App\\Services\\Admin\\UserService' => $baseDir . '/app/services/admin/UserService.php',
     'Db\\Connections\\MySqlConnection' => $baseDir . '/database/connections/MySqlConnection.php',
     'Db\\Interfaces\\IConnections' => $baseDir . '/database/interfaces/Connections.php',
     'SlimFlashTest' => $vendorDir . '/slim/slim/tests/Middleware/FlashTest.php',

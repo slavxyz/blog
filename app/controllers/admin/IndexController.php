@@ -3,6 +3,7 @@ namespace App\Controllers\Admin;
 
 use App\Controllers\Controller as Controller;
 use App\Models\User;
+use App\Models\Auth;
 use Slim\Http\Request;
 
 class IndexController extends Controller
@@ -10,11 +11,8 @@ class IndexController extends Controller
     
     public function index()
     {
-        
-        
-        $user = new User();
-        
-        if($user->isSessionExpired()){
+        $auth = new Auth(new User());
+        if($auth->isSessionExpired()){
             $this->app->redirect('login');
         }
         

@@ -1,4 +1,28 @@
-<h3>I'm templating {{ app }} from twig and I'm integrated with the route system</h3>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Admin panel</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    </head>
+    <body>
+       <div class="container mt-5 mb-5">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-12 ">
+                    <h3>Welcome to Blog</h3>
+                    {% for post in posts %}
+                    <hr>
+                    <div class="title"><b>{{ post.title}}</b></div>
+                    <div class="body">{{ post.body }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</html>
 
 
 
