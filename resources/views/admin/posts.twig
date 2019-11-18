@@ -3,20 +3,20 @@
 {%  block posts %}
     <div class="container login-container">
         <div class="row justify-content-center align-items-center">
-            <div class="col-6">
+            <div class="col-10">
                 <a href="postform" class="create-user">Add post +</a>
                 <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">Title</th>
-                            <th scope="col">Created At</th>
+                            <th scope="col">Created</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for post in posts %}}
+                        {% for post in posts %}
                         <tr>
                             <td>{{ post.title }}</td>
-                            <td>{{ post.body }}</td>
+                            <td>{{ post.created_at }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -18,11 +18,13 @@ class PostsController extends Controller
     
     public function index()
     {
-        $this->app->render('admin/posts.twig');
+        $posts = $this->postService->getPosts();
+        $this->app->render('admin/posts.twig', ['posts' => $posts]);
     } 
     
     public function postForm()
     {
+        
          $this->app->render('admin/postForm.twig');
     }
     

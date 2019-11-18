@@ -11,6 +11,11 @@ class PostService
         $this->postRepository = $postRepository;
     }
     
+    public function getPosts() : array
+    {
+        return $this->postRepository->postslist();
+    }
+    
     public function postPrepare($user_id, $title, $content)
     {
         $this->postRepository->insertPost($user_id, $title, $content);

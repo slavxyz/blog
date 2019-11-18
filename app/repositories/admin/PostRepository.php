@@ -16,4 +16,15 @@ class PostRepository
         $this->post->create([$user_id, $title, $content]);
     }
     
+    public function postslist() : array 
+    {
+        try{
+            return $this->post->select()->fetchAll();
+        } catch (Exception $e){
+            echo $e->getMessage();
+        }
+        
+                
+    }
+    
 }
