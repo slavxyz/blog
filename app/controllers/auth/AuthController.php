@@ -6,6 +6,7 @@ use App\Controllers\Controller as Controller;
 
 use App\Models\Auth;
 use App\Models\User;
+use App\Common\UserSession;
 use Slim\Http\Request as Request;
 
 class AuthController extends Controller
@@ -16,10 +17,11 @@ class AuthController extends Controller
         $username = $request->params('user');
         $password = $request->params('password');
         
-        $role = $_SESSION['auth_role'];
+        $role = UserSession::getSessionRole();
         
-        if(empty($username) || empty($password))
+        if(empty($username) || empty($password)){
             $this->app->redirect('login');
+        }
         
         $auth = new Auth(new User);
         

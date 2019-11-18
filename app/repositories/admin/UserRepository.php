@@ -13,9 +13,7 @@ class UserRepository {
     
     public function createUser(string $username, string $email, string $role, string $password): void
     {
-        $passwordHash = password_hash($password, PASSWORD_BCRYPT);
-        
-        $this->user->create([$username, $email, $role, $passwordHash]);
+        $this->user->create([$username, $email, $role, $password]);
     }
     
     public function userslist() : array 
@@ -25,7 +23,5 @@ class UserRepository {
         } catch (Exception $e){
             echo $e->getMessage();
         }
-        
-                
     }
 }

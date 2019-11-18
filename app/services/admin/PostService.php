@@ -11,6 +11,11 @@ class PostService
         $this->postRepository = $postRepository;
     }
     
+    public function getPostsByUserId($userId) : array
+    {
+        return $this->postRepository->postsListByUserId($userId);
+    }
+    
     public function getPosts() : array
     {
         return $this->postRepository->postslist();

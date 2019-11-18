@@ -1,5 +1,6 @@
 <?php
 namespace App\Controllers\Admin;
+
 use App\Controllers\Controller as Controller;
 use Slim\Http\Request;
 use App\Services\Admin\UserService;
@@ -17,7 +18,12 @@ class UsersController extends Controller
     
     public function index()
     {
-        $users = $this->userService->getUsers();
+        try{
+            $users = $this->userService->getUsers();
+        } catch(Exception $e) {
+            echo $e->getMessage();
+        }
+        
         $this->app->render('admin/users.twig',['users' => $users]);
     }
     
@@ -33,7 +39,11 @@ class UsersController extends Controller
         $role = $request->params('role');
         $password = $request->params('password');
         
-        $this->userService->prepareUser($username, $email, $role, $password);
+        try{
+            $this->userService->prepareUser($username, $email, $role, $password);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
         
          $this->app->redirect('/blog/public/users');
     }
