@@ -3,16 +3,9 @@
 namespace App\Models;
 
 use App\Models\Model;
+use App\Common\UserSession;
 
 class User extends Model {
-
-    const SESSION_LOGGED_IN = 'auth_logged_in';
-    const SESSION_USER_ID = 'auth_user_id';
-    const SESSION_USERNAME = 'auth_username';
-    const SESSION_ROLE = 'auth_role';
-    const SESSION_RESYNC = 'auth_resync';
-    
-    private  $loginTimeDuration = 60 * 5; // 5 minutes 
 
     protected $table = 'users';
     protected $fields = [
@@ -72,13 +65,13 @@ class User extends Model {
         return false;
     }
 
-    public function loginSuccessfull(int $id, string $username, string $role) : void 
+    public function loginSuccessfull(int $userId, string $username, string $role) : void 
     {
-        $_SESSION[self::SESSION_LOGGED_IN] = true;
-        $_SESSION[self::SESSION_USER_ID] = $id;
-        $_SESSION[self::SESSION_USERNAME] = $username;
-        $_SESSION[self::SESSION_ROLE] = $role;
-        $_SESSION[self::SESSION_RESYNC] = time();
+        UserSession::setSessionLoggedIn(true);
+        UserSession::setSessionUserid($userId);
+        UserSession::setSessionUsername($username);
+        UserSession::setSessionRole($role);
+        UserSession::setSessionResync(time());
     }
 
     protected static function validatePassword(string $password) : string
@@ -126,9 +119,9 @@ class User extends Model {
     }
 
     public function isSessionExpired() : bool
-    {
-        if ($_SESSION[self::SESSION_RESYNC]) {
-            if (((time() - $_SESSION[self::SESSION_RESYNC]) > $this->loginTimeDuration)) {
+    {   
+        if (UserSession::getSessionResync()) {
+            if (((time() - UserSession::getSessionResync()) > UserSession::getLoginTimeDuration())) {
                return true;
             }
         }

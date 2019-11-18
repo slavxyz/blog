@@ -80,6 +80,7 @@ class ComposerStaticInitef7244bdc9bc355bc526a2cc0c43db85
     );
 
     public static $classMap = array (
+        'App\\Common\\UserSession' => __DIR__ . '/../..' . '/app/common/UserSession.php',
         'App\\Controllers\\Admin\\IndexController' => __DIR__ . '/../..' . '/app/controllers/admin/IndexController.php',
         'App\\Controllers\\Admin\\PostsController' => __DIR__ . '/../..' . '/app/controllers/admin/PostsController.php',
         'App\\Controllers\\Admin\\UsersController' => __DIR__ . '/../..' . '/app/controllers/admin/UsersController.php',
