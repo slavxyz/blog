@@ -17,3 +17,5 @@ CREATE TABLE `users` (
  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+
+INSERT INTO users(`username`, `email`, `role`, `password`) VALUES ('admin','test@test.com','admin','$2y$10$EQrjRXo0Yeghbxas7ngdcO4fnMV2tQHDdSh2UFJ1w9zOb4WqApCDe')
