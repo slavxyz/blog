@@ -70,7 +70,7 @@ abstract class Model {
 
         return $this;
     }
-
+    
     public function orderBy(string $column, string $sort = "ASC"): Model
     {
         $this->query->sql .= " ORDER BY $column $sort";

@@ -1,6 +1,6 @@
 <?php
 
-$app->get('/', 'App\Controllers\IndexController:index');
+
 
 $app->post('/auth', function () use ($app) {
        $auth = new  App\Controllers\Auth\AuthController();
@@ -81,4 +81,10 @@ $app->post('/post', function() use ($app, $auth, $postSrv)
         
         $postCreate = new App\Controllers\Admin\PostsController($postSrv);
         return $postCreate->create($app->request());
+});
+
+
+$app->get('/', function() use ($app, $postSrv){
+    $posts = new App\Controllers\IndexController($postSrv);
+        return $posts->index();
 });
